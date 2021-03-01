@@ -1,7 +1,7 @@
 <?php
 	switch($_GET['page']) {
 		case Constants::PAGE_HOME:
-			include("view/inc/home.html");
+			include("module/home/view/home.html");
 			break;
 		case Constants::PAGE_SHOP:
 			include("module/shop/view/shop.html");

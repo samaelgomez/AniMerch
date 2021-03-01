@@ -22,6 +22,17 @@ class ShopService {
         return $products;
     }
 
+    public function getFilteredProducts($filters): array
+    {
+        $products = $this->daoService->select_filtered_figures($filters);
+
+        if(empty($products)){
+            throw new NoProductsFoundException('No products found');
+        }
+
+        return $products;
+    }
+
     public function getStandard(): array
     {
         $products = $this->daoService->select_standard();
@@ -47,6 +58,17 @@ class ShopService {
     public function getNendoroid(): array
     {
         $products = $this->daoService->select_nendoroid();
+
+        if(empty($products)){
+            throw new NoProductsFoundException('No products found');
+        }
+
+        return $products;
+    }
+
+    public function getTypedFigure($type): array
+    {
+        $products = $this->daoService->select_typed_figure($type);
 
         if(empty($products)){
             throw new NoProductsFoundException('No products found');

@@ -20,6 +20,22 @@ class DAOService{
         return $data;
     }
 
+    function select_filtered_figures($filters): array
+    {
+        $sql = "SELECT * FROM figures ".$filters;
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
+
     function select_standard(): array
     {
         $sql = "SELECT * FROM figures WHERE type = 'Standard'";
@@ -55,6 +71,22 @@ class DAOService{
     function select_nendoroid(): array
     {
         $sql = "SELECT * FROM figures WHERE type = 'Nendoroid'";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    function select_typed_figure($type): array
+    {
+        $sql = "SELECT * FROM figures WHERE type = '.$type.'";
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
