@@ -297,25 +297,7 @@ header .navbar {
 	padding-top: 80px;
 }
 
-.banner-item-01 {
-	padding: 300px 0px;
-	background-image: url(../images/Banner1.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-
-.banner-item-02 {
-	padding: 300px 0px;
-	background-image: url(../images/Banner2.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-
-.banner-item-03 {
-	padding: 300px 0px;
-	background-image: url(../images/Banner3.png);
+.banner-item-carousel {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -1003,9 +985,7 @@ footer .inner-content p a {
 		font-size: 36px;
 		letter-spacing: 0.5px;
 	}
-	.banner-item-01,
-	.banner-item-02,
-	.banner-item-03 {
+	.banner-item-carousel {
 		padding: 180px 0px;
 	}
 	.page-heading .text-content h4 {
@@ -1519,13 +1499,9 @@ footer .inner-content p a {
   }
   input.variation + label {
 	display: inline-block;
-	width: 30px;
-	height: 30px;
-	margin: 0px 15px 0;
-	border-radius: 50%;
+	width: 0px;
+	height: 0px;
 	cursor: pointer;
-	border: 4px solid #fff;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
   #bluepurple + label {

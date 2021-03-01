@@ -5,7 +5,23 @@ $shopService = new ShopService();
 
 header('Content-type: application/json');
 switch($_SERVER['REQUEST_METHOD']){
+    case 'GET':
+        echo json_encode($shopService->getBanners());
+        break;
     case 'POST':
+        if ($_POST['query']) {
+            $inpText = $_POST['query'];
+            $query = "SELECT name FROM figures WHERE name LIKE '%$inpText%'";
+            echo json_encode($shopService->autocomplete($query));
+            die();
+        }
+
+        if ($_POST['fname']) {
+            $where = "WHERE name = '".$_POST['fname']."';";
+            echo json_encode($shopService->getFilteredProducts($where));
+            die();
+        }
+
         $where = "";
         if ($_POST['brand']) {
             if ($_POST['franchise']) {

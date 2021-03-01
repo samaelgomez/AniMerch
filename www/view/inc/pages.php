@@ -7,7 +7,7 @@
 			include("module/shop/view/shop.html");
 			break;
 		case Constants::PAGE_DETAILS:
-			include("module/details/view/details.html");
+			include("view/inc/details.html");
 			break;
 		default:
 			break;

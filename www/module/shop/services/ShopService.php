@@ -76,4 +76,26 @@ class ShopService {
 
         return $products;
     }
+
+    public function autocomplete($query): array
+    {
+        $products = $this->daoService->select_autocomplete($query);
+
+        if(empty($products)){
+            throw new NoProductsFoundException('No products found');
+        }
+
+        return $products;
+    }
+
+    public function getBanners(): array
+    {
+        $products = $this->daoService->select_all_banners();
+
+        if(empty($products)){
+            throw new NoProductsFoundException('No products found');
+        }
+
+        return $products;
+    }
 }
