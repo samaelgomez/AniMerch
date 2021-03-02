@@ -10,8 +10,6 @@ function renderBanner(image) {
     $('.owl-carousel')
     .trigger('add.owl.carousel', [`<div class="banner-item-carousel"><img class="banner-item-carousel" src="${image.path}"></div>`])
     .trigger('refresh.owl.carousel');
-  
-    // $('<div></div>').attr('class','banner-item-carousel').html(banner).appendTo('#fullCarousel');
 }
 
 function loadCarousel() {

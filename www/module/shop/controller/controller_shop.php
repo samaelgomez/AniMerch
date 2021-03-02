@@ -17,25 +17,18 @@ switch($_SERVER['REQUEST_METHOD']){
         }
 
         if ($_POST['fname']) {
-            $where = "WHERE name = '".$_POST['fname']."';";
+            $where = "name = '".$_POST['fname']."';";
             echo json_encode($shopService->getFilteredProducts($where));
             die();
         }
 
-        $where = "";
-        if ($_POST['brand']) {
-            if ($_POST['franchise']) {
-                $where = "WHERE brand = '".$_POST['brand']."' AND franchise = '".$_POST['franchise']."';";
-                echo json_encode($shopService->getFilteredProducts($where));
-                die();
+        if ($_POST['petition']) {
+            if ($_POST['petition'] == " ") {
+                echo json_encode($shopService->getProducts());
             } else {
-                $where = "WHERE brand = '".$_POST['brand']."';";
-                echo json_encode($shopService->getFilteredProducts($where));
-                die();
+                echo json_encode($shopService->getFilteredProducts($_POST['petition']));
             }
-        } elseif ($_POST['franchise']) {
-            $where = "WHERE franchise = '".$_POST['franchise']."';";
-            echo json_encode($shopService->getFilteredProducts($where));
+            
             die();
         }
 

@@ -22,15 +22,20 @@ class DAOService{
 
     function select_filtered_figures($filters): array
     {
-        $sql = "SELECT * FROM figures ".$filters;
+        $sql = "SELECT * FROM figures WHERE ".$filters;
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
 
-        $data = [];
-        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+        try {
+            $data = [];
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
+        } catch (\Throwable $th) {
+            $data = [];
+        }
+
         connect::close($conexion);
 
         return $data;
