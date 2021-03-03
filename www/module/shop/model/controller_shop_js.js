@@ -1,6 +1,24 @@
 let filterArray=[];
 let filtros = [{categoria:"brand", contenido:["Alter","Aniplex","GoodSmile", "Kadokawa"]},{categoria:"franchise", contenido:["Bleach","BNHA", "Naruto", "Nier", "OnePiece", "Vocaloid"]}]
 
+function display_image(id, image_url){
+  document.getElementById(id).src = image_url;
+}
+function get_random_dog_image(id){
+
+  url = "https://dog.ceo/api/breeds/image/random";
+
+  fetch(url)
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    display_image(id, data.message);
+  })
+  .catch(function(error){
+    console.log("Error: " + error);
+  });
+}
 function renderProduct(figure) {
   let product = `
   <div class="profile">
@@ -73,8 +91,7 @@ function pintar_filtros() {
                 </label>`
             })
         })
-        to_return += `<div class="profile__cta" id="filter_button"><a class="button">Filter</a></div>
-        <div class="profile__cta" id="reset_filters"><a class="button">Reset filters</a></div>`;
+        to_return += `<div class="profile__cta" id="filter_button"><a class="button">Filter</a></div>`;
         destination.innerHTML = to_return
         resolve(true)
     })
@@ -97,8 +114,11 @@ function addFilterEvent(array,eventType) {
     });
 }
 function renderDetails(figure) {
+  
+  get_random_dog_image('image1');
+  get_random_dog_image('image2');
+  get_random_dog_image('image3');
 
-  console.log(figure);
   let product = `
   <div class="products" id="details_container">
     <div class="container">
@@ -191,28 +211,31 @@ function renderDetails(figure) {
           <div class="product-item">
             <a href="product-details.html"></a>
             <div class="down-content">
-              <a href="product-details.html"><h4>Omega bicycle</h4></a>
-              <h6><small><del>$999.00 </del></small> $779.00</h6>
+                <img id="image1"/>
+                <h4>Random doggo 1</h4></a>
+                <h6><small><del>$99.00</del></small> FREE :)</h6>
             </div>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="product-item">
-            <a href="product-details.html"><img src="view/images/product-2-370x270.jpg" alt=""></a>
+            <a href="product-details.html"></a>
             <div class="down-content">
-              <a href="product-details.html"><h4>Nike Revolution 5 Shoes</h4></a>
-              <h6><small><del>$99.00</del></small>  $79.00</h6>
+              <img id="image2"/>
+              <h4>Random doggo 2</h4></a>
+              <h6><small><del>$99.00</del></small> FREE :)</h6>
             </div>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="product-item">
-            <a href="product-details.html"><img src="view/images/product-3-370x270.jpg" alt=""></a>
+            <a href="product-details.html"></a>
             <div class="down-content">
-              <a href="product-details.html"><h4>Treadmill Orion Sprint</h4></a>
-              <h6><small><del>$1999.00</del></small>   $1779.00</h6>
+              <img id="image3"/>
+              <h4>Random doggo 3</h4></a>
+              <h6><small><del>$99.00</del></small> FREE :)</h6>
             </div>
           </div>
         </div>
@@ -230,7 +253,6 @@ function loadDetails(figureName) {
 
   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {fname: figureName})
   .then((data)=>{
-    console.log(data);
     renderDetails(data);
   })
 }
