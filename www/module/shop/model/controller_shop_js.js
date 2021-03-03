@@ -110,19 +110,19 @@ function renderDetails(figure) {
           <div class="row">
             <div class="col-sm-4 col-xs-6">
               <div>
-                <img src="view/images/product-1-370x270.jpg" alt="" class="img-fluid">
+                <img src="view/images/png.png" alt="" class="img-fluid">
               </div>
               <br>
             </div>
             <div class="col-sm-4 col-xs-6">
               <div>
-                <img src="view/images/product-2-370x270.jpg" alt="" class="img-fluid">
+                <img src="view/images/png.png" alt="" class="img-fluid">
               </div>
               <br>
             </div>
             <div class="col-sm-4 col-xs-6">
               <div>
-                <img src="view/images/product-3-370x270.jpg" alt="" class="img-fluid">
+                <img src="view/images/png.png" alt="" class="img-fluid">
               </div>
               <br>
             </div>
@@ -176,15 +176,57 @@ function renderDetails(figure) {
         </div>
       </div>
     </div>
+  </div>
+  
+  <div class="latest-products">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <h2>Similar Products</h2>
+            <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="product-item">
+            <a href="product-details.html"></a>
+            <div class="down-content">
+              <a href="product-details.html"><h4>Omega bicycle</h4></a>
+              <h6><small><del>$999.00 </del></small> $779.00</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="product-item">
+            <a href="product-details.html"><img src="view/images/product-2-370x270.jpg" alt=""></a>
+            <div class="down-content">
+              <a href="product-details.html"><h4>Nike Revolution 5 Shoes</h4></a>
+              <h6><small><del>$99.00</del></small>  $79.00</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="product-item">
+            <a href="product-details.html"><img src="view/images/product-3-370x270.jpg" alt=""></a>
+            <div class="down-content">
+              <a href="product-details.html"><h4>Treadmill Orion Sprint</h4></a>
+              <h6><small><del>$1999.00</del></small>   $1779.00</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>`;
 
   $('<div></div>').html(product).appendTo('#loadedDetails');
 }
-
 function loadDetails(figureName) {
   $('.variation').empty();
   $('#loadedFilters').empty();
   $('#loadedProducts').empty();
+  $('#most_visited').empty();
 
   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {fname: figureName})
   .then((data)=>{
@@ -192,7 +234,6 @@ function loadDetails(figureName) {
     renderDetails(data);
   })
 }
-
 function loadPage(petition="") {
   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {petition: petition})
   .then((data)=>{
@@ -208,7 +249,6 @@ function loadPage(petition="") {
         })
       }
     })
-    console.log(data);
     data.length === 0
                 ? document.getElementById('loadedProducts').innerHTML = '<h3>No products found!</h3>'
                 : data.forEach(renderProduct);
@@ -234,8 +274,28 @@ window.onload = () =>{
   })
   let dbpetition = localStorage.getItem('petition') || " ";
 
-  loadPage(dbpetition);
+  $("#search").keyup(function(){
+    var searchText = $(this).val();
+    if(searchText!=''){
+        $.ajax({
+            url: 'module/shop/controller/controller_shop.php',
+            type: 'POST',
+            data: {query: searchText},
+            success: function(data) {
+              $('#loadedProducts').empty();
+              data.forEach(renderProduct);
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+    } else {
+      $('#loadedProducts').empty();
+      loadPage(dbpetition);
+    }
+})
 
+  loadPage(dbpetition);
 }
 
 // function loadFilters() {

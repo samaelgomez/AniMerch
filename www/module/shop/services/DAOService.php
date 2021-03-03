@@ -41,6 +41,27 @@ class DAOService{
         return $data;
     }
 
+    function select_ordered_figures($filters): array
+    {
+        $sql = "SELECT * FROM figures ".$filters;
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        try {
+            $data = [];
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        } catch (\Throwable $th) {
+            $data = [];
+        }
+
+        connect::close($conexion);
+
+        return $data;
+    }
+
     function select_standard(): array
     {
         $sql = "SELECT * FROM figures WHERE type = 'Standard'";
@@ -112,8 +133,13 @@ class DAOService{
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
 
-        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-            echo "<a href='#' class='list-group-item list-group-item-action border-1'>".$row['name']."</a>";
+        try {
+            $data = [];
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        } catch (\Throwable $th) {
+            $data = [];
         }
         connect::close($conexion);
 

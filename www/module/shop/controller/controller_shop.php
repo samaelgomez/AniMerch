@@ -11,7 +11,7 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'POST':
         if ($_POST['query']) {
             $inpText = $_POST['query'];
-            $query = "SELECT name FROM figures WHERE name LIKE '%$inpText%'";
+            $query = "SELECT * FROM figures WHERE name LIKE '%$inpText%'";
             echo json_encode($shopService->autocomplete($query));
             die();
         }
@@ -19,6 +19,12 @@ switch($_SERVER['REQUEST_METHOD']){
         if ($_POST['fname']) {
             $where = "name = '".$_POST['fname']."';";
             echo json_encode($shopService->getFilteredProducts($where));
+            die();
+        }
+
+        if ($_POST['order']) {
+            $order = "ORDER BY visits DESC";
+            echo json_encode($shopService->getOrderedProducts($order));
             die();
         }
 

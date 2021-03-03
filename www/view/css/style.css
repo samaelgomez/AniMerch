@@ -382,6 +382,7 @@ header .navbar {
 .product-item {
 	border: 1px solid #eee;
 	margin-bottom: 30px;
+	background-image: url('https://images.dog.ceo/brands/boxer/IMG_0002.jpg');
 }
 
 .product-item .down-content {
@@ -2170,4 +2171,70 @@ footer .inner-content p a {
 	display: block;
 	position: relative;
 	z-index: 100;
+  }
+
+  body, html, ul {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+  }
+  
+  ul {
+	list-style-type: none;
+  }
+  
+  a {
+	color: inherit;
+	text-decoration: none;
+	transition: 0.2s;
+  }
+  a:hover {
+	opacity: 0.75;
+  }
+  
+  .wrapper {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 100px 0;
+  }
+  
+  .anchorList {
+	display: flex;
+	margin-bottom: 30px;
+  }
+  .anchorList li {
+	margin-right: 30px;
+  }
+  
+  .listStyle01 {
+	margin-bottom: 30px;
+  }
+  .listStyle01 li {
+	padding: 10px 0;
+	border-bottom: 1px solid;
+  }
+  
+  .pagination {
+	margin: 0 auto;
+	text-align: center;
+  }
+  .pagination .page {
+	background: white;
+	color: black;
+	width: 30px;
+	display: inline-block;
+	border: 1px solid black;
+	margin: 0 5px;
+	cursor: pointer;
+  }
+  .pagination .page:hover {
+	background: black;
+	color: white;
+  }
+  .pagination .current {
+	background: black;
+	color: white;
+  }
+  .pagination .controlBtn {
+	margin: 0 10px;
   }
