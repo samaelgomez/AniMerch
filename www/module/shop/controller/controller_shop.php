@@ -22,6 +22,12 @@ switch($_SERVER['REQUEST_METHOD']){
             die();
         }
 
+        if ($_POST['upfname']) {
+            $where = "name = '".$_POST['upfname']."';";
+            echo json_encode($shopService->addVisit($where));
+            die();
+        }
+
         if ($_POST['order']) {
             $order = "ORDER BY visits DESC";
             echo json_encode($shopService->getOrderedProducts($order));

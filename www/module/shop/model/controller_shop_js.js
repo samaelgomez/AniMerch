@@ -256,6 +256,12 @@ function loadDetails(figureName) {
     renderDetails(data);
   })
 }
+function addVisit(figureName) {
+  ajaxPromise("module/shop/controller/controller_shop.php", "POST", {upfname: figureName})
+  .then((data)=>{
+    // console.log(data);
+  })
+}
 function loadPage(petition="") {
   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {petition: petition})
   .then((data)=>{
@@ -288,6 +294,7 @@ window.onload = () =>{
   $('<h2></h2>').html(localStorage.getItem("category")).appendTo('#figure_title');
 
   $("body").on("click", ".profile__image", function() {
+    addVisit(this.getAttribute('id'));
     loadDetails(this.getAttribute('id'));
   });
 

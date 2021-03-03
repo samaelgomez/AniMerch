@@ -25,6 +25,13 @@ class ShopService {
         return $products;
     }
 
+    public function addVisit($filters): array
+    {
+        $products = $this->daoService->addVisits($filters);
+
+        return $products;
+    }
+
     public function getOrderedProducts($filters): array
     {
         $products = $this->daoService->select_ordered_figures($filters);
