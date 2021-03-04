@@ -6,7 +6,7 @@ class DAOService{
     
     function select_all_figures(): array
     {
-        $sql = "SELECT * FROM figures";
+        $sql = "SELECT * FROM figures ORDER BY visits DESC";
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
