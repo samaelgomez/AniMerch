@@ -4,10 +4,12 @@
 		const PAGE_HOME = 'home';
 		const PAGE_SHOP = 'shop';
 		const PAGE_DETAILS = 'details';
+		const PAGE_LOGIN = 'login';
 		const PAGES = [
 			self::PAGE_HOME,
 			self::PAGE_SHOP,
 			self::PAGE_DETAILS,
+			self::PAGE_LOGIN,
 		];
 	}
 

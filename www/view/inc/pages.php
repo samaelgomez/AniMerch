@@ -9,6 +9,9 @@
 		case Constants::PAGE_DETAILS:
 			include("view/inc/details.html");
 			break;
+		case Constants::PAGE_LOGIN:
+			include("module/auth/view/auth.html");
+			break;
 		default:
 			break;
 	}
