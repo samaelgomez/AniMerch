@@ -87,10 +87,10 @@ function registerUser($data) {
 
 function loginUser($data) {
     $exists = executor(makeSelectSentence($data[0], $data[1][0], ' * ', 'username = "'.$data[1][0].'" AND pass = "'.$data[1][1]));
-    if (count($exists) == 0) {
+    if (count($exists[0]) == 0) {
         return 'Username or password not entered correctly';
     } else {
-        return [$data[0], $exists];
+        return [$data[0], $exists[0]];
     }
 }
 

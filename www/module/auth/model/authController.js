@@ -1,34 +1,63 @@
-function getFormElements() {
+function getFormElementsStatic() {
     // return ["register", ["client", ['test@gmail.com', 'pepe', 'xd', 'ruta/imagen', '69420']]];
     return ['login', ['client', ['pepe', 'xd']]];
 }
 
-window.onload = () =>{
-    document.getElementById("registerButton").addEventListener("click",()=>{
-        formResults = getFormElements();
-        authPetition(formResults[0], formResults[1])
-        .then(result => {
-            console.log(result);
-            changeSession('login', {username: result[1][1][1], type: result[1][0], image: result[1][1][3]})
-        })
-        .catch((e) => {
-            console.log(e);
-        });
-    })
+function getFormElements(form) {
+    const formData = new FormData(form);
+    const pairs = [];
+    for (const [_name, value] of formData) {
+      pairs.push(value);
+    }
 
-    document.getElementById("loginButton").addEventListener("click",()=>{
-        formResults = getFormElements();
-        authPetition(formResults[0], formResults[1])
-        .then(result => {
-            console.log(result);
-            changeSession('login', {username: result[1][0].username, type: result[0], image: result[1][0].avatar})
-        })
-        .catch((e) => {
-            console.log(e);
-        });
-    })
+    let userType = pairs[1].split('@')[1].split('.')[0];
+    pairs.splice(1, 1);
 
-    document.getElementById("logoutButton").addEventListener("click",()=>{
-        changeSession('logout');
+    switch (userType) {
+        case 'shop':
+            return ['shop', pairs];
+    
+        default:
+            return ['client', pairs];
+    }
+}
+
+window.onload = () => {
+    printHeaderAuthButton().then (result => {
+        let logButton = document.getElementById('navContainer');
+        logButton.innerHTML = result;
+
+        let registerButton = document.getElementById("registerButton");
+        let loginButton = document.getElementById("loginButton");
+        let logoutButton = document.getElementById("logoutButton");
+        
+        if(registerButton !== null) {
+            registerButton.addEventListener("click",(e)=>{
+                const form = document.querySelector('form#registerForm');
+                let formData = "";
+        
+                e.preventDefault();
+                formData = getFormElements(form);
+                register(formData);
+            })
+        }
+
+        if(loginButton !== null) {
+            loginButton.addEventListener('click',(e)=>{
+                const form = document.querySelector('form#loginForm');
+                let formData = "";
+        
+                e.preventDefault();
+                formData = getFormElements(form);
+                login(formData);
+            })
+        }
+        
+        if(logoutButton !== null) {
+            logoutButton.addEventListener("click",()=>{
+                console.log("reclicado bro");
+                changeSession('logout');
+            })
+        }
     })
 }
