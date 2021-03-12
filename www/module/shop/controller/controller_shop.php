@@ -11,19 +11,19 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'POST':
         if ($_POST['query']) {
             $inpText = $_POST['query'];
-            $query = "SELECT * FROM figures WHERE name LIKE '%$inpText%'";
+            $query = "SELECT * FROM figures WHERE figureName LIKE '%$inpText%'";
             echo json_encode($shopService->autocomplete($query));
             die();
         }
 
         if ($_POST['fname']) {
-            $where = "name = '".$_POST['fname']."';";
+            $where = "figureName = '".$_POST['fname']."';";
             echo json_encode($shopService->getFilteredProducts($where));
             die();
         }
 
         if ($_POST['upfname']) {
-            $where = "name = '".$_POST['upfname']."';";
+            $where = "figureName = '".$_POST['upfname']."';";
             echo json_encode($shopService->addVisit($where));
             die();
         }
