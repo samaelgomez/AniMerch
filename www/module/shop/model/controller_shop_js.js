@@ -22,9 +22,9 @@ function get_random_dog_image(id){
 function renderProduct(figure) {
   let product = `
   <div class="profile">
-    <div class="profile__image" id="${figure.name}"><img src="${figure.image}"></div>
+    <div class="profile__image" id="${figure.figureName}"><img src="${figure.image}"></div>
     <div class="profile__info">
-      <h4>${figure.name}</h4>
+      <h4>${figure.figureName}</h4>
     </div>
     <div class="profile__stats">
       <p class="profile__stats__title"></p>
@@ -151,7 +151,7 @@ function renderDetails(figure) {
 
         <div class="col-md-8 col-xs-12">
           <form action="#" method="post" class="form">
-            <h2>${figure[0].name}</h2>
+            <h2>${figure[0].figureName}</h2>
             <br>
             <p class="lead">
               <strong class="text-primary">${figure[0].price}€</strong>
