@@ -55,7 +55,6 @@ function printHeaderButton() {
         
         if(logoutButton !== null) {
             logoutButton.addEventListener("click",()=>{
-                console.log("reclicado bro");
                 changeSession('logout');
             })
         }
