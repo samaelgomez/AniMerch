@@ -323,6 +323,6 @@ window.onload = () =>{
       loadPage(dbpetition);
     }
 })
-
+  printHeaderButton();
   loadPage(dbpetition);
 }

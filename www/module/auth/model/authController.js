@@ -22,11 +22,11 @@ function getFormElements(form) {
     }
 }
 
-window.onload = () => {
+function printHeaderButton() {
     printHeaderAuthButton().then (result => {
         let logButton = document.getElementById('navContainer');
         logButton.innerHTML = result;
-
+    
         let registerButton = document.getElementById("registerButton");
         let loginButton = document.getElementById("loginButton");
         let logoutButton = document.getElementById("logoutButton");
@@ -41,7 +41,7 @@ window.onload = () => {
                 register(formData);
             })
         }
-
+    
         if(loginButton !== null) {
             loginButton.addEventListener('click',(e)=>{
                 const form = document.querySelector('form#loginForm');
