@@ -12,6 +12,9 @@
 		case Constants::PAGE_LOGIN:
 			include("module/auth/view/auth.html");
 			break;
+		case Constants::PAGE_PROFILE:
+			include("module/profile/view/profile.html");
+			break;
 		default:
 			break;
 	}

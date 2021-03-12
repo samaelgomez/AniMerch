@@ -1,6 +1,6 @@
 function getFormElementsStatic() {
     // return ["register", ["client", ['test@gmail.com', 'pepe', 'xd', 'ruta/imagen', '69420']]];
-    return ['login', ['client', ['pepe', 'xd']]];
+    // return ['login', ['client', ['pepe', 'xd']]];
 }
 
 function getFormElements(form) {

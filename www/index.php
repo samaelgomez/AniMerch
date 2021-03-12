@@ -5,11 +5,13 @@
 		const PAGE_SHOP = 'shop';
 		const PAGE_DETAILS = 'details';
 		const PAGE_LOGIN = 'login';
+		const PAGE_PROFILE = 'profile';
 		const PAGES = [
 			self::PAGE_HOME,
 			self::PAGE_SHOP,
 			self::PAGE_DETAILS,
 			self::PAGE_LOGIN,
+			self::PAGE_PROFILE,
 		];
 	}
 

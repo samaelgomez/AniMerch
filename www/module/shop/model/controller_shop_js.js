@@ -324,5 +324,12 @@ window.onload = () =>{
     }
 })
   printHeaderButton();
-  loadPage(dbpetition);
+
+  if (document.getElementById('loadedProducts') != undefined) {
+    loadPage(dbpetition);
+  }
+  
+  if (document.getElementById('profileContentContainer') != undefined) {
+    loadProfilePage();
+  }
 }

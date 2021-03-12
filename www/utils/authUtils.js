@@ -17,12 +17,13 @@ function changeSession(action, data={}) {
             localStorage.setItem('username', data.username);
             localStorage.setItem('userType', data.type);
             localStorage.setItem('userImage', data.image);
+            localStorage.setItem('userEmail', data.email);
             break;
 
         case 'logout':
             localStorage.removeItem('username');
             localStorage.removeItem('userType');
-            localStorage.removeItem('userImage');
+            localStorage.removeItem('userEmail');
             break;
     
         default:
@@ -35,7 +36,7 @@ function login(formData) {
     authPetition('login', formData)
     .then(result => {
         console.log(result);
-        changeSession('login', {username: result[1].username, type: result[0], image: result[1].avatar})
+        changeSession('login', {username: result[1].username, type: result[0], image: result[1].avatar, email: result[1].email})
     })
     .catch((e) => {
         console.log(e);
