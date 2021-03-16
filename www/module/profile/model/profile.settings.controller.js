@@ -1,9 +1,9 @@
 function getProfileFormElements(form) {
     let profileFormUsername = document.getElementById('profileFormUsername').value;
-    let profileFormPassword = document.getElementById('profilePassword').value;
     let profileFormEmail = document.getElementById('profileFormEmail').value;
+    let profileFormPassword = document.getElementById('profilePassword').value;
 
-    console.log([profileFormUsername, profileFormEmail, profileFormPassword]);
+    return [profileFormUsername, profileFormEmail, profileFormPassword];
 }
 
 function loadProfilePage() {
@@ -20,11 +20,18 @@ function loadProfilePage() {
 
       printSettingsProfile().then(result => {
         document.getElementById('profileSettingsSubmit').addEventListener('click', (e) => {
-            const form = document.querySelector('#settingsForm');
+            const form = document.querySelector('form#settingsForm');
             let formData = "";
     
             e.preventDefault();
             formData = getProfileFormElements(form);
+            console.log(formData);
+            ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {userType: localStorage.getItem('userType'), profileData: formData})
+            .then(()=>{
+                localStorage.removeItem('userEmail');
+                localStorage.setItem('userEmail', formData[1]);
+                location.reload();
+            })
         })
       });
     });
@@ -47,7 +54,7 @@ function printSettingsProfile() {
                 <form id="settingsForm">
                 <div>
                     <label>Name:</label>
-                    <input type="text" name="profileUsername" id="profileFormUsername" placeholder="Name" value="${localStorage.getItem('username')}"/>
+                    <input type="text" name="profileUsername" id="profileFormUsername" placeholder="Name" value="${localStorage.getItem('username')}" disabled/>
                 </div>
                 <div>
                     <label>Email:</label>
