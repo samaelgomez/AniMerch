@@ -11,16 +11,16 @@ function makeCreateSentence($type, $username) {
             email       varchar(40) Primary Key not null,
             username    varchar(25) not null,
             pass        longtext    not null,
-            avatar      longtext    not null,
-            money       longtext    not null
-        )";
+            avatar      varchar(500)   DEFAULT 'https://i.imgur.com/XiyeGgN.jpeg',
+            money       varchar(12)    DEFAULT 0
+        );";
     } elseif ($type == "shop") {
         $query = "CREATE TABLE if not exists ".$username." (
             email       varchar(40) Primary Key not null,
             brand_name  varchar(200) not null,
             username    varchar(25),
             pass        longtext,
-            avatar      longtext,
+            avatar      varchar(500) DEFAULT 'https://i.imgur.com/XiyeGgN.jpeg',
             FOREIGN KEY (brand_name) REFERENCES shops(shopName)
        )";
     }
@@ -32,9 +32,9 @@ function makeInsertSentence($type, $name, $data) {
     $columns = "";
 
     if ($type == "client") {
-        $columns = "email, username, pass, avatar, money";
+        $columns = "email, username, pass";
     } elseif ($type == "shop") {
-        $columns = "email, brandName, username, pass, avatar";
+        $columns = "email, brandName, username, pass";
     }
 
     $arrayCount = count($data);
@@ -64,7 +64,7 @@ function makeSelectSentence($type, $name, $column=" * ", $where=false) {
 }
 
 function registerUser($data) {
-    $exists = executor(makeSelectSentence($data[0], $data[1][1]));
+    $exists = executor(makeSelectSentence($data[0], $data[1][0]));
 
     if ($exists == null) {
         $createOK = executorNoReturn(makeCreateSentence($data[0], $data[1][1]));
@@ -86,7 +86,7 @@ function registerUser($data) {
 }
 
 function loginUser($data) {
-    $exists = executor(makeSelectSentence($data[0], $data[1][0], ' * ', 'username = "'.$data[1][0].'" AND pass = "'.$data[1][1]));
+    $exists = executor(makeSelectSentence($data[0], $data[1][1], ' * ', 'username = "'.$data[1][1].'" AND pass = "'.$data[1][2]));
     if (count($exists[0]) == 0) {
         return 'Username or password not entered correctly';
     } else {
@@ -94,7 +94,7 @@ function loginUser($data) {
     }
 }
 
-switch($_SERVER['REQUEST_METHOD']){
+switch($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         if ($_POST['authPetition'] == 'register') {
             echo json_encode(registerUser($_POST['data']));

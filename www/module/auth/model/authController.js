@@ -10,8 +10,7 @@ function getFormElements(form) {
       pairs.push(value);
     }
 
-    let userType = pairs[1].split('@')[1].split('.')[0];
-    pairs.splice(1, 1);
+    let userType = pairs[0].split('@')[1].split('.')[0];
 
     switch (userType) {
         case 'shop':
@@ -35,7 +34,7 @@ function printHeaderButton() {
             registerButton.addEventListener("click",(e)=>{
                 const form = document.querySelector('form#registerForm');
                 let formData = "";
-        
+
                 e.preventDefault();
                 formData = getFormElements(form);
                 register(formData);
