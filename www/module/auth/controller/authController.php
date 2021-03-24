@@ -1,6 +1,7 @@
 <?php
 
 include (__DIR__ . '/../services/DAOAuth.php');
+include (__DIR__ . '/../../../utils/middlewhere.auth.php');
 
 header('Content-type: application/json');
 
@@ -15,9 +16,9 @@ function makeCreateSentence($type, $username) {
             money       varchar(12)    DEFAULT 0
         );";
     } elseif ($type == "shop") {
-        $query = "CREATE TABLE if not exists ".$username." (
+        $query = "CREATE TABLE if not exists shop".$username." (
             email       varchar(40) Primary Key not null,
-            brand_name  varchar(200) not null,
+            brand_name  varchar(200) DEFAULT 'Kadokawa',
             username    varchar(25),
             pass        longtext,
             avatar      varchar(500) DEFAULT 'https://i.imgur.com/XiyeGgN.jpeg',
@@ -34,7 +35,7 @@ function makeInsertSentence($type, $name, $data) {
     if ($type == "client") {
         $columns = "email, username, pass";
     } elseif ($type == "shop") {
-        $columns = "email, brandName, username, pass";
+        $columns = "email, username, pass";
     }
 
     $arrayCount = count($data);
@@ -90,7 +91,9 @@ function loginUser($data) {
     if (count($exists[0]) == 0) {
         return 'Username or password not entered correctly';
     } else {
-        return [$data[0], $exists[0]];
+        $userType = (explode('.', explode('@', $data[1][0])[1])[0]);
+        $token = token('encode', $userType);
+        return [$data[0], $exists[0], $token];
     }
 }
 

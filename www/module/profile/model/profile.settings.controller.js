@@ -25,7 +25,6 @@ function loadProfilePage() {
     
             e.preventDefault();
             formData = getProfileFormElements(form);
-            console.log(formData);
             ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {userType: localStorage.getItem('userType'), profileData: formData})
             .then(()=>{
                 localStorage.removeItem('userEmail');

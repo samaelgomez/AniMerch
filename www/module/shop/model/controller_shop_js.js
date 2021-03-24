@@ -259,7 +259,6 @@ function loadDetails(figureName) {
 function addVisit(figureName) {
   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {upfname: figureName})
   .then((data)=>{
-    // console.log(data);
   })
 }
 function loadPage(petition="") {

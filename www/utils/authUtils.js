@@ -12,13 +12,13 @@ function authPetition(petitionType, data) {
 }
 
 function changeSession(action, data={}) {
-    console.log(data);
     switch (action) {
         case 'login':
             localStorage.setItem('username', data.username);
             localStorage.setItem('userType', data.type);
             localStorage.setItem('userImage', data.avatar);
             localStorage.setItem('userEmail', data.email);
+            localStorage.setItem('token', data.token);
             break;
 
         case 'logout':
@@ -26,6 +26,7 @@ function changeSession(action, data={}) {
             localStorage.removeItem('userType');
             localStorage.removeItem('userEmail');
             localStorage.removeItem('userImage');
+            localStorage.removeItem('token');
             break;
     
         default:
@@ -37,10 +38,7 @@ function changeSession(action, data={}) {
 function login(formData) {
     authPetition('login', formData)
     .then(result => {
-        console.log(result);
-        console.log(result);
-        console.log(result);
-        changeSession('login', {username: result[1].username, type: result[0], avatar: result[1].avatar, email: result[1].email})
+        changeSession('login', {username: result[1].username, type: result[0], avatar: result[1].avatar, email: result[1].email, token: result[2]})
     })
     .catch((e) => {
         console.log(e);
@@ -50,8 +48,7 @@ function login(formData) {
 function register(formData) {
     authPetition('register', formData)
     .then(result => {
-        console.log(result);
-        changeSession('login', {username: result[1][1][1], type: result[0], email: result[1][1][0]})
+        changeSession('login', {username: result[1][1][1], type: result[0], email: result[1][1][0], token: result[2]})
     })
     .catch((e) => {
         console.log(e);
