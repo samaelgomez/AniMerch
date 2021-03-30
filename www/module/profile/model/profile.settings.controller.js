@@ -25,7 +25,7 @@ function loadProfilePage() {
     
             e.preventDefault();
             formData = getProfileFormElements(form);
-            ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {userType: localStorage.getItem('userType'), profileData: formData})
+            ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {action: 'edit', userType: localStorage.getItem('userType'), profileData: formData})
             .then(()=>{
                 localStorage.removeItem('userEmail');
                 localStorage.setItem('userEmail', formData[1]);
@@ -34,6 +34,14 @@ function loadProfilePage() {
         })
       });
     });
+
+    if (localStorage.getItem('userType') == 'shop') {
+        ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {action: 'list', userType: localStorage.getItem('userType')})
+        .then((data)=>{
+            console.log(data);
+        })
+    }
+
 }
 
 function validateProfileSettings() {
@@ -48,7 +56,6 @@ function printSettingsProfile() {
         profileContentTitle.innerHTML = 'Edit profile';
         profileContentContainer.innerHTML = `
         <div class="mainContainer">
-	
             <div class="container">
                 <form id="settingsForm">
                 <div>

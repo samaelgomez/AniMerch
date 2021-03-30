@@ -1,6 +1,7 @@
 <?php
 
 include (__DIR__ . '/../services/DAOProfile.php');
+include (__DIR__ . '/../../../utils/middlewhere.auth.php');
 
 function updateProfileSentence($userType, $profileData) {
     $query = "";
@@ -8,4 +9,21 @@ function updateProfileSentence($userType, $profileData) {
     executorNoReturn($query);
 }
 
-updateProfileSentence($_POST['userType'], $_POST['profileData']);
+function listShopItems($userType, $token) {
+    token('compare', $token);
+}
+
+$headers = getAllHeaders();
+
+switch ($_POST['action']) {
+    case 'list':
+        listShopItems($_POST['userType'], $headers['Authorization']);
+        break;
+
+    case 'edit':
+        updateProfileSentence($_POST['userType'], $_POST['profileData']);
+        break;
+    
+    default:
+        break;
+    }
