@@ -36,7 +36,7 @@ switch($_SERVER['REQUEST_METHOD']){
 
         if ($_POST['petition']) {
             if ($_POST['petition'] == " ") {
-                echo json_encode($shopService->getProducts());
+                echo json_encode($shopService->getProducts($_POST['loggedUser'], $_POST['userType'], $_POST['username']));
             } else {
                 echo json_encode($shopService->getFilteredProducts($_POST['petition']));
             }

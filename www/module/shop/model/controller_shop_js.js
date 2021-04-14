@@ -33,10 +33,14 @@ function renderProduct(figure) {
     <div class="profile__stats">
       <h4 class="profile__stats__info">${figure.price}€</h4>
     </div>
-    <div class="profile__cta"><a class="button">Add to your cart</a></div>
-    <div class='heartButton heart' id="${figure.figureName}"></div>
-  </div>`;
-
+    <div class="profile__cta"><a class="button">Add to your cart</a></div>`;
+    if (figure.liked == 0 || figure.liked == undefined) {
+      product +=`<div class='heartButton heart' id="${figure.figureName}"></div>
+                </div>`;
+    } else {
+      product +=`<div class='heartButton heart active' id="${figure.figureName}"></div>
+                </div>`;
+    }
   $('<section></section>').attr({'class':'results-section results--grid'}).html(product).appendTo('#loadedProducts');
 }
 function deleteFromArray(array,to_delete,tipo) {
@@ -263,7 +267,8 @@ function addVisit(figureName) {
   })
 }
 function loadPage(petition="") {
-  ajaxPromise("module/shop/controller/controller_shop.php", "POST", {petition: petition})
+  ajaxPromise("module/shop/controller/controller_shop.php", "POST", {petition: petition, loggedUser: localStorage.getItem('token'), userType: localStorage.getItem('userType'),
+                                                                      username: localStorage.getItem('username')})
   .then((data)=>{
     pintar_filtros().then(result =>{
       if (result) {

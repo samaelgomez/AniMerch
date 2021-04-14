@@ -11,9 +11,9 @@ class ShopService {
         $this->daoService = new DAOService();
     }
 
-    public function getProducts(): array
+    public function getProducts($token, $userType, $username): array
     {
-        $products = $this->daoService->select_all_figures();
+        $products = $this->daoService->select_all_figures($token, $userType, $username);
 
         return $products;
     }

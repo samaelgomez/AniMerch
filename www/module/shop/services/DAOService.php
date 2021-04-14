@@ -5,17 +5,15 @@ include (__DIR__ . '/../../../utils/middleware.auth.php');
 
 class DAOService{
     
-    function select_all_figures(): array
+    function select_all_figures($token, $userType, $username): array
     {
-        // $newToken = token('encode', $_POST['userType']);
-        // var_dump($_POST['token']);
-        // if ($newToken == $_POST['token']) {
-        //     $sql = "SELECT *,
-        //     IF((SELECT figureID FROM ".$_POST['userType'].$_POST['username']."Favorites WHERE ".$_POST['userType'].$_POST['username']." Favorites.figureID = figures.id) IS NULL, FALSE, TRUE) AS liked
-        //     FROM figures;";
-        // } else {
+        if ($token == "") {
             $sql = "SELECT * FROM figures ORDER BY visits DESC";
-        // }
+        } else {
+            $sql = "SELECT *,
+            IF((SELECT figureName FROM clientsiFavorites WHERE clientsiFavorites.figureName = figures.figureName) IS NULL, FALSE, TRUE) AS liked
+            FROM figures;";
+        }
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
@@ -46,9 +44,6 @@ class DAOService{
         }
 
         connect::close($conexion);
-        
-        // var_dump(json_encode($data));
-        // die();
 
         return $data;
     }
@@ -210,7 +205,7 @@ class DAOService{
 
     function removeLikedProduct($username, $figureName)
     {
-        $sql = "UPDATE figures SET likes = likes - 1 WHERE figureName = '".$figureName."'";
+        $sql = "UPDATE figures SET likes = IF(likes - 1 < 0, 0, likes - 1) WHERE figureName = '".$figureName."'";
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
