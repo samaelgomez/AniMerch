@@ -34,6 +34,7 @@ function renderProduct(figure) {
       <h4 class="profile__stats__info">${figure.price}€</h4>
     </div>
     <div class="profile__cta"><a class="button">Add to your cart</a></div>
+    <div class='heartButton heart' id="${figure.figureName}"></div>
   </div>`;
 
   $('<section></section>').attr({'class':'results-section results--grid'}).html(product).appendTo('#loadedProducts');
@@ -301,6 +302,17 @@ window.onload = () =>{
     localStorage.removeItem('petition');
   })
   let dbpetition = localStorage.getItem('petition') || " ";
+
+  $("body").on("click", ".heartButton", function() {
+    if ($(this).hasClass('active')){
+      $(this).removeClass('active');
+      activeHeart = false;
+    }else{
+      $(this).addClass('active');
+      activeHeart = true;
+    }
+    ajaxPromiseNoJSON("module/shop/controller/controller_shop.php", "POST", {heartState: activeHeart, username: localStorage.getItem('username'), figureName: this.getAttribute('id')});
+  });
 
   $("#search").keyup(function(){
     var searchText = $(this).val();

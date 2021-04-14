@@ -1,6 +1,5 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'] . '/';
-include ($path . 'model/connect.php');
 
 function executor($query) {
     $connection = connect::con();

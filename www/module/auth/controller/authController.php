@@ -1,7 +1,7 @@
 <?php
 
 include (__DIR__ . '/../services/DAOAuth.php');
-include (__DIR__ . '/../../../utils/middlewhere.auth.php');
+include (__DIR__ . '/../../../utils/middleware.auth.php');
 
 header('Content-type: application/json');
 
@@ -24,6 +24,18 @@ function makeCreateSentence($type, $username) {
             avatar      varchar(500) DEFAULT 'https://i.imgur.com/XiyeGgN.jpeg',
             FOREIGN KEY (brand_name) REFERENCES shops(shopName)
        )";
+    }
+    return $query;
+}
+
+function makeCreateFavoritesSentence($type, $username) {
+    $query = "";
+    if ($type == "client") {
+        $query = "CREATE TABLE if not exists client".$username."Favorites (
+            id INT auto_increment,
+            figureName VARCHAR(200),
+            PRIMARY KEY (id)
+        );";
     }
     return $query;
 }
@@ -78,6 +90,7 @@ function registerUser($data) {
             echo json_encode("That user could not be inserted...");
             die();
         }
+        executorNoReturn(makeCreateFavoritesSentence($data[0], $data[1][1]));
         return [$data[0], $data];
     } else {
         echo json_encode("That user already exists...");

@@ -80,4 +80,24 @@ class ShopService {
 
         return $products;
     }
+
+    public function addLikedProduct($username, $figureName)
+    {
+        $this->daoService->addLikedProduct($username, $figureName);
+    }
+
+    public function removeLikedProduct($username, $figureName)
+    {
+        $this->daoService->removeLikedProduct($username, $figureName);
+    }
+
+    public function addUserLikedProduct($username, $figureName)
+    {
+        $this->daoService->addUserLikedProduct($username, $figureName);
+    }
+
+    public function removeUserLikedProduct($username, $figureName)
+    {
+        $this->daoService->removeUserLikedProduct($username, $figureName);
+    }
 }

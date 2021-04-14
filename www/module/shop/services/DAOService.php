@@ -1,12 +1,21 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'] . '/';
 include ($path . 'model/connect.php');
+include (__DIR__ . '/../../../utils/middleware.auth.php');
 
 class DAOService{
     
     function select_all_figures(): array
     {
-        $sql = "SELECT * FROM figures ORDER BY visits DESC";
+        // $newToken = token('encode', $_POST['userType']);
+        // var_dump($_POST['token']);
+        // if ($newToken == $_POST['token']) {
+        //     $sql = "SELECT *,
+        //     IF((SELECT figureID FROM ".$_POST['userType'].$_POST['username']."Favorites WHERE ".$_POST['userType'].$_POST['username']." Favorites.figureID = figures.id) IS NULL, FALSE, TRUE) AS liked
+        //     FROM figures;";
+        // } else {
+            $sql = "SELECT * FROM figures ORDER BY visits DESC";
+        // }
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
@@ -37,6 +46,9 @@ class DAOService{
         }
 
         connect::close($conexion);
+        
+        // var_dump(json_encode($data));
+        // die();
 
         return $data;
     }
@@ -184,5 +196,45 @@ class DAOService{
         connect::close($conexion);
 
         return $data;
+    }
+    
+    function addLikedProduct($username, $figureName)
+    {
+        $sql = "UPDATE figures SET likes = likes + 1 WHERE figureName = '".$figureName."'";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        connect::close($conexion);
+    }
+
+    function removeLikedProduct($username, $figureName)
+    {
+        $sql = "UPDATE figures SET likes = likes - 1 WHERE figureName = '".$figureName."'";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        connect::close($conexion);
+    }
+
+    function addUserLikedProduct($username, $figureName)
+    {
+        $sql = "INSERT INTO client".$username."Favorites (figureName) VALUES ('".$figureName."');";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        connect::close($conexion);
+    }
+
+    function removeUserLikedProduct($username, $figureName)
+    {
+        $sql = "DELETE FROM client".$username."Favorites WHERE figureName = '".$figureName."';";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        connect::close($conexion);
     }
 }

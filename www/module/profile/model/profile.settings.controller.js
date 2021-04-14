@@ -35,12 +35,10 @@ function loadProfilePage() {
       });
     });
 
-    if (localStorage.getItem('userType') == 'shop') {
-        ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {action: 'list', userType: localStorage.getItem('userType')})
-        .then((data)=>{
-            console.log(data);
-        })
-    }
+    ajaxPromiseNoJSON("module/profile/controller/profile.controller.php", "POST", {action: 'list', userType: localStorage.getItem('userType'), username: localStorage.getItem('username')})
+    .then((data)=>{
+        console.log(data);
+    })
 
 }
 

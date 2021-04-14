@@ -20,7 +20,7 @@ function ajaxPromiseNoJSON(sUrl, sType, sData = undefined) {
             type: sType,
             data: sData,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', localStorage.getItem('token') != undefined
+                xhr.setRequestHeader('authorization', localStorage.getItem('token') != undefined
                                                                                     ? localStorage.getItem('token')
                                                                                     : '');
             },

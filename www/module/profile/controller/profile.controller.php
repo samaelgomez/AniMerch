@@ -1,7 +1,8 @@
 <?php
 
+include (__DIR__ . '/../../shop/services/DAOService.php');
 include (__DIR__ . '/../services/DAOProfile.php');
-include (__DIR__ . '/../../../utils/middlewhere.auth.php');
+include (__DIR__ . '/../../../utils/middleware.auth.php');
 
 function updateProfileSentence($userType, $profileData) {
     $query = "";
@@ -9,15 +10,27 @@ function updateProfileSentence($userType, $profileData) {
     executorNoReturn($query);
 }
 
-function listShopItems($userType, $token) {
-    token('compare', $token);
+function listProfileItems($userType, $token, $username) {
+    $newToken = token('encode', $userType);
+    if ($newToken == $token) {
+        $DAO = new DAOService;
+        switch ($userType) {
+            case 'shop':
+                $DAO->select_filtered_figures('brand = "Kadokawa"');
+                break;
+            
+            default:
+                $DAO->select_all_figures();
+                break;
+        }
+    }
 }
 
 $headers = getAllHeaders();
 
 switch ($_POST['action']) {
     case 'list':
-        listShopItems($_POST['userType'], $headers['Authorization']);
+        listProfileItems($_POST['userType'], $headers['authorization'], $_POST['username']);
         break;
 
     case 'edit':

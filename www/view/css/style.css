@@ -2307,14 +2307,6 @@ footer .inner-content p a {
 	text-align: center;
   }
   
-  @media (min-width: 668px) {
-	.authentication {
-	}
-  }
-  
-  .authentication-info {
-  }
-  
   .remember .custom-checkbox {
 	margin-right: 6px;
 	display: inline-block;
@@ -2337,7 +2329,6 @@ footer .inner-content p a {
 	right: 0;
 	content: "\f0c8";
 	font-family: "Font Awesome 5 Free";
-	speak: none;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -2467,3 +2458,29 @@ footer .inner-content p a {
   .cardProfile .num {
 	font-size: 1.5rem;
   }
+
+.active.heart:before,.active.heart:after {
+	background: red !important;
+}
+
+.heart:before,
+.heart:after {
+	transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+	margin-top: 5px;
+	margin-left: 230px;
+}
+.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin :100% 100%;
+}

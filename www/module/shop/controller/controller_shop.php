@@ -44,6 +44,16 @@ switch($_SERVER['REQUEST_METHOD']){
             die();
         }
 
+        if ($_POST['heartState']) {
+            if ($_POST['heartState'] == 'true') {
+                $shopService->addLikedProduct($_POST['username'], $_POST['figureName']);
+                $shopService->addUserLikedProduct($_POST['username'], $_POST['figureName']);
+            } else {
+                $shopService->removeLikedProduct($_POST['username'], $_POST['figureName']);
+                $shopService->removeUserLikedProduct($_POST['username'], $_POST['figureName']);
+            }
+        }
+
         if($_POST['category']=="All") {
             echo json_encode($shopService->getProducts());
         } elseif ($_POST['category']=="Standard") {
