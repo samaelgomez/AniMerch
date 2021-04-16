@@ -33,7 +33,7 @@ function renderProduct(figure) {
     <div class="profile__stats">
       <h4 class="profile__stats__info">${figure.price}€</h4>
     </div>
-    <div class="profile__cta"><a class="button">Add to your cart</a></div>`;
+    <div class="profile__cta"><a class="button cartButton" id="${figure.figureName}">Add to your cart</a></div>`;
     if (figure.liked == 0 || figure.liked == undefined) {
       product +=`<div class='heartButton heart' id="${figure.figureName}"></div>
                 </div>`;
@@ -317,6 +317,10 @@ window.onload = () =>{
       activeHeart = true;
     }
     ajaxPromiseNoJSON("module/shop/controller/controller_shop.php", "POST", {heartState: activeHeart, username: localStorage.getItem('username'), figureName: this.getAttribute('id')});
+  });
+
+  $("body").on("click", ".cartButton", function() {
+    localStorage.setItem('cart' + this.id, this.id);
   });
 
   $("#search").keyup(function(){

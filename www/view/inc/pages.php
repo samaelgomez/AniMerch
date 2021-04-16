@@ -15,6 +15,9 @@
 		case Constants::PAGE_PROFILE:
 			include("module/profile/view/profile.html");
 			break;
+		case Constants::PAGE_CART:
+			include("module/cart/view/cart.html");
+			break;
 		default:
 			break;
 	}
